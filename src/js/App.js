@@ -28,7 +28,7 @@ function Text() {
 
     <div className="text">
       <div className="textPos">
-        Title
+        Encrypt Your Text
       </div>
     </div>
   )
