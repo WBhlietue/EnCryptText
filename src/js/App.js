@@ -1,7 +1,9 @@
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 import React, { useRef } from "react";
 import "../css/index.css"
 import Main from "../index.js"
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const select = "btnSelected";
 const unSelect = "btnUnSelect";
@@ -76,6 +78,7 @@ function Input(arg) {
   var r = 0;
 
   function Change(event) {
+    console.log(GetIndex('o', numToChar).toString(2));
     if (selectNum == 0) {
       Encrypt(event);
     } else {
@@ -112,6 +115,9 @@ function Input(arg) {
       }
     }
     if (str.length > 0) {
+      // while (str.length < 6) {
+      //   str += "0"
+      // }
       let x = parseInt(str, 2);
       toChar += numToChar[x];
       str = "";
@@ -125,17 +131,65 @@ function Input(arg) {
 
   function Decrypt(event) {
     var toChar = event.target.value;
-    var binar = "";
-    for (var i = toChar.length - 1; i >= 0; i--) {
-
-    }
-  }
-
-  function ReverseString(params) {
+    var binary = "";
+    var mors = "";
+    var ascii = "";
     var str = "";
-    for (let i = params.length - 1; i >= 0; i--) {
-      str += params[i];
+
+    toChar = event.target.value;
+    var tmp = "";
+
+    for (let i = 0; i < toChar.length; i++) {
+      let x = GetIndex(toChar[i], numToChar).toString(2);
+      while (x.length < 6 && i != toChar.length - 1) {
+        x = "0" + x;
+      }
+      binary += x;
     }
+    var s = binary;
+    binary = "";
+
+    for (let i = s.length - 1; i >= 0; i--) {
+      binary += s[i];
+    }
+
+    for (let i = 0; i < binary.length; i += 2) {
+      tmp = binary[i] + binary[i + 1];
+      mors += GetIndex(tmp, binar);
+      tmp = "";
+    }
+
+
+    for (let i = 1; i < mors.length; i++) {
+      if (mors[i] == '2') {
+        ascii += GetIndex(tmp, morse);
+        tmp = "";
+      } else if (mors[i] == '3') {
+        ascii += '.';
+        tmp = "";
+      } else {
+        tmp += mors[i];
+      }
+    }
+
+    for (let i = 0; i < ascii.length; i++) {
+      if (ascii[i] != '.') {
+        tmp += ascii[i];
+      } else {
+        str += String.fromCharCode(tmp);
+        tmp = "";
+      }
+    }
+    value = str;
+    Main.Render();
+  }
+  function GetIndex(str, array) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] == str) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   if (arg.reset == 1) {
@@ -175,8 +229,9 @@ function Copy() {
 
   function Click() {
     navigator.clipboard.writeText(value);
-    alert("copied!");
+    toast("Copied!");
   }
+  const notify = () => toast("Wow so easy!");
 
   return (
     <button className="copyBtn" onClick={Click}>
@@ -185,18 +240,34 @@ function Copy() {
   )
 }
 
+function Notif() {
+  return (
+    <div className="notification">
+
+    </div>
+  )
+}
+
 function App() {
   textRef = useRef(null);
   return (
-    <div className="mainPanel">
-      <Text />
-      <Select />
-      <Input reset={reset} />
-      <Arrow />
-      <Output />
-      <Copy />
+    <div>
+      <div className="mainPanel">
+        <Text />
+        <Select />
+        <Input reset={reset} />
+        <Arrow />
+        <Output />
+        <Copy />
+      </div>
+      <ToastContainer position="top-right" autoClose={500} hideProgressBar={true} />
     </div>
+
   );
 }
 
 export default App;
+
+
+// 0101000000100001100010110100000010000110000001001011
+// 0101000000100001100010110100000010000110000001001011

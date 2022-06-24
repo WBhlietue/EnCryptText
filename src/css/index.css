@@ -69,6 +69,7 @@ body {
   background-color: rgb(224, 224, 224);
 }
 
+
 .input {
   position: relative;
   background-color: white;
@@ -132,4 +133,17 @@ body {
   width: 10vh;
   background-color: rgb(157, 255, 77);
   border: none;
+}
+
+.copyBtn:active {
+  background-color: rgb(144, 228, 74);
+}
+
+.notification {
+  border: 1px solid;
+  margin-top: 10px;
+  background-color: white;
+  transition: 1s;
+  border-radius: 10px;
+  padding: 10px 30px;
 }
