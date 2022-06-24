@@ -91,7 +91,6 @@ function Input(arg) {
     var mors = "1";
     var binary = "";
     var toChar = "";
-    console.log("............");
     for (let i = 0; i < str.length; i++) {
       ascii += str[i].charCodeAt(0) + '.';
     }
@@ -111,7 +110,6 @@ function Input(arg) {
       if (str.length == 6) {
         let x = parseInt(str, 2);
         toChar += numToChar[x];
-        console.log(str);
         str = "";
       }
     }
@@ -119,7 +117,6 @@ function Input(arg) {
       // while (str.length < 6) {
       //   str += "0"
       // }
-      console.log(str + ".");
       let x = parseInt(str, 2);
       toChar += numToChar[x] + "`" + str.length;
       str = "";
@@ -146,7 +143,6 @@ function Input(arg) {
         while (x.length < 6) {
           x = "0" + x;
         }
-        console.log(x);
         binary += x;
       }
     } else {
@@ -158,7 +154,6 @@ function Input(arg) {
         while (i == toChar.length - 3 && x.length < parseInt(toChar[toChar.length - 1], 10)) {
           x = '0' + x;
         }
-        console.log(x);
         binary += x;
       }
     }
