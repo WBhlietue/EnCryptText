@@ -119,7 +119,7 @@ function Input(arg) {
       //   str += "0"
       // }
       let x = parseInt(str, 2);
-      toChar += numToChar[x];
+      toChar += numToChar[x] + "`";
       str = "";
     }
     value = toChar;
@@ -138,13 +138,22 @@ function Input(arg) {
 
     toChar = event.target.value;
     var tmp = "";
-
-    for (let i = 0; i < toChar.length; i++) {
-      let x = GetIndex(toChar[i], numToChar).toString(2);
-      while (x.length < 6 && i != toChar.length - 1) {
-        x = "0" + x;
+    if (toChar[toChar.length - 1] != '`') {
+      for (let i = 0; i < toChar.length; i++) {
+        let x = GetIndex(toChar[i], numToChar).toString(2);
+        while (x.length < 6) {
+          x = "0" + x;
+        }
+        binary += x;
       }
-      binary += x;
+    } else {
+      for (let i = 0; i < toChar.length - 1; i++) {
+        let x = GetIndex(toChar[i], numToChar).toString(2);
+        while (x.length < 6 && i != toChar.length - 2) {
+          x = "0" + x;
+        }
+        binary += x;
+      }
     }
     var s = binary;
     binary = "";
